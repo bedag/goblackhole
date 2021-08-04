@@ -1,0 +1,7 @@
+Peers:
+  - remote_as: 64512
+    remote_ip: "172.17.0.2"
+local_id: 192.168.34.169 
+local_as: 65001
+LogLevel: Info 
+Blocklist: https://raw.githubusercontent.com/stamparm/ipsum/master/ipsum.txt
