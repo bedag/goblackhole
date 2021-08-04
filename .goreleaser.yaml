@@ -9,7 +9,7 @@ builds:
       - amd64
       - arm64
 dockers:
-- image_templates: ["ghcr.io/bedag/goblackhole:{{ .Version }}"]
+- image_templates: ["docker.io/bedag/goblackhole:{{ .Version }}"]
   dockerfile: Dockerfile
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
@@ -21,7 +21,7 @@ dockers:
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
   - --label=org.opencontainers.image.licenses=MIT
 nfpms:
-- maintainer: NOC <noc@bedag.ch>
+- maintainer: Bedag Network Operation Center <noc@bedag.ch>
   description: Goblackhole.
   homepage: https://github.com/bedag/goblackhole
   license: MIT
