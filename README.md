@@ -2,7 +2,7 @@
 
 ![GoPher](./media/gopher.png "GoPher")
 
-Goblackhole downloads periodicaly a remote file and propagts these ips to a remote bgp peer.
+Goblackhole downloads periodicaly a remote file and propagates these ips to a remote bgp peer.
 
 It can be used to implement [rfc7999](https://datatracker.ietf.org/doc/html/rfc7999).
 
