@@ -1,6 +1,6 @@
 # goblackhole
 
-![GoPher](./media/gopher.png "GoPher")
+![Gopher](./media/gopher.png "GoPher")
 
 Goblackhole downloads periodicaly a remote file and propagates these ips to a remote bgp peer.
 
