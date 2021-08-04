@@ -1,6 +1,6 @@
 # goblackhole
 
-![GoPher](gopher.png "GoPher")
+![GoPher](./media/gopher.png "GoPher")
 
 Goblackhole downloads periodicaly a remote file and propagts these ips to a remote bgp peer.
 
@@ -28,3 +28,7 @@ Community: 65535:666 # For rfc7999
 We'd love to have you contribute! Please refer to our contribution guidelines for details.
 
 By making a contribution to this project, you agree to and comply with the Developer's Certificate of Origin.
+
+# Gopher
+
+Gopher was created with https://github.com/quasilyte/gopherkon
