@@ -1,4 +1,4 @@
-FROM scratch
+FROM gcr.io/distroless/base 
 COPY goblackhole /usr/bin/goblackhole
 COPY ./config.yaml /etc/goblackhole/config.yaml
-ENTRYPOINT ["/usr/bin/goblackhole"]
+CMD ["/usr/bin/goblackhole"]
