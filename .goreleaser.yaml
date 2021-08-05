@@ -25,12 +25,14 @@ dockers:
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
-  - --label=org.opencontainers.image.licenses=MIT
+  - --label=org.opencontainers.image.licenses=Apache-2.0
+  extra_files:
+  - config.yaml
 nfpms:
 - maintainer: Bedag Network Operation Center <noc@bedag.ch>
   description: Goblackhole.
   homepage: https://github.com/bedag/goblackhole
-  license: APACHE
+  license: Apache-2.0
   formats:
   - deb
   - rpm
