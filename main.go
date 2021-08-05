@@ -40,6 +40,7 @@ type Config struct {
 	NextHop   string
 	LogLevel  string
 	Interval  time.Duration
+	Community []uint32
 }
 
 // Peer peer config
@@ -70,7 +71,7 @@ func main() {
 	viper.SetDefault("Listen", -1)
 	viper.SetDefault("Blocklist", "https://raw.githubusercontent.com/stamparm/ipsum/master/ipsum.txt")
 	viper.SetDefault("NextHop", "192.168.0.1")
-	viper.SetDefault("Log", "Debug")
+	viper.SetDefault("Log", "Info")
 	viper.SetDefault("Interval", 5*time.Second)
 	err := viper.Unmarshal(&cfg)
 	if err != nil {
@@ -92,8 +93,6 @@ func main() {
 			As:         cfg.Local_as,
 			RouterId:   cfg.Local_id,
 			ListenPort: cfg.Listen,
-			ListenAddresses: []string{
-				"10.0.255.1"},
 		},
 	}); err != nil {
 		log.Fatal(err)
@@ -108,9 +107,17 @@ func main() {
 	a2, _ := ptypes.MarshalAny(&api.NextHopAttribute{
 		NextHop: cfg.NextHop,
 	})
+	// Adding Community
+	var communities []uint32
+	for _, community := range cfg.Community {
+		communities = append(communities, cfg.Local_as<<16^community)
+	}
+	a3, _ := ptypes.MarshalAny(&api.CommunitiesAttribute{
+		Communities: communities,
+	})
 
 	// ToDo: Add comunityAttribute
-	attrs = []*any.Any{a1, a2}
+	attrs = []*any.Any{a1, a2, a3}
 
 	// monitor the change of the peer state
 	if err := s.MonitorPeer(context.Background(), &api.MonitorPeerRequest{}, func(p *api.Peer) { log.Info(p) }); err != nil {
@@ -207,7 +214,6 @@ func addIPtoPeer(a []net.IPNet) {
 			Prefix:    string(ip.IP.String()),
 			PrefixLen: uint32(mask),
 		})
-
 		_, err = s.AddPath(context.Background(), &api.AddPathRequest{
 			Path: &api.Path{
 				Family: &api.Family{Afi: api.Family_AFI_IP, Safi: api.Family_SAFI_UNICAST},
