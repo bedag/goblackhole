@@ -12,7 +12,7 @@ archives:
   files: [a-workaround-to-include-only-the-binary*]
   wrap_in_directory: false
 checksum:
-  name_template: "bedagctl-{{ .Version }}-checksums.sha256" 
+  name_template: "goblackhole-{{ .Version }}-checksums.sha256" 
 
 dockers:
 - image_templates: ["docker.io/bedag/goblackhole:{{ .Version }}"]
