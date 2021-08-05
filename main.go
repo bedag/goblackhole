@@ -61,6 +61,7 @@ func main() {
 
 	viper.SetConfigName("config")
 	viper.AddConfigPath(".")
+	viper.AddConfigPath("/etc/goblackhole/")
 
 	viper.AutomaticEnv()
 	if err := viper.ReadInConfig(); err != nil {
