@@ -8,6 +8,25 @@ It can be used to implement [rfc7999](https://datatracker.ietf.org/doc/html/rfc7
 
 ## Usage
 
+### Install
+
+Install it with Go.
+```
+go get github.com/bedag/goblackhole
+```
+
+Or download it from the release page: https://github.com/bedag/goblackhole/releases
+
+Or use our Docker Image bedag/goblackhole
+
+### Docker
+
+```
+docker run -d --name gbh bedag/goblackhole:<version>
+```
+
+You should mount the configuration file under /etc/goblackhole/config.yaml
+
 ### Configuration
 The Config should be stored in `./config.yaml`
 ```yaml
@@ -15,12 +34,12 @@ The Config should be stored in `./config.yaml`
 Peers:
   - remote_as: 64512
     remote_ip: "172.17.0.2"
-local_id: 192.168.34.169 
+local_id: 10.217.133.15
 local_as: 65001
-LogLevel: Debug 
-Blocklist: http://network.pages.mgmtbi.ch/blacklist/blacklist.txt
-Interval: 1min
-Community: 65535:666 # For rfc7999
+LogLevel: Info 
+Blocklist: https://raw.githubusercontent.com/stamparm/ipsum/master/ipsum.txt
+Community: 
+- 666
 ```
 
 # Contributing
@@ -29,6 +48,7 @@ We'd love to have you contribute! Please refer to our contribution guidelines fo
 
 By making a contribution to this project, you agree to and comply with the Developer's Certificate of Origin.
 
-# Gopher
+# Thanks
 
-Gopher was created with https://github.com/quasilyte/gopherkon
+- Gopher: https://github.com/quasilyte/gopherkon
+- Gobgp:  https://github.com/osrg/gobgp

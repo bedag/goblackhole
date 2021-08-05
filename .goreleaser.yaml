@@ -7,14 +7,21 @@ builds:
     goarch:
       - amd64
       - arm64
+archives:
+- name_template: "goblackhole-{{ .Version }}-{{ .Os }}-{{ .Arch }}"
+  files: [a-workaround-to-include-only-the-binary*]
+  wrap_in_directory: false
+checksum:
+  name_template: "bedagctl-{{ .Version }}-checksums.sha256" 
+
 dockers:
 - image_templates: ["docker.io/bedag/goblackhole:{{ .Version }}"]
   dockerfile: Dockerfile
   build_flag_templates:
   - --label=org.opencontainers.image.title={{ .ProjectName }}
   - --label=org.opencontainers.image.description={{ .ProjectName }}
-  - --label=org.opencontainers.image.url=https://github.com/goreleaser/example
-  - --label=org.opencontainers.image.source=https://github.com/goreleaser/example
+  - --label=org.opencontainers.image.url=https://github.com/bedag/goblackhole
+  - --label=org.opencontainers.image.source=https://github.com/bedag/goblackhole
   - --label=org.opencontainers.image.version={{ .Version }}
   - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
   - --label=org.opencontainers.image.revision={{ .FullCommit }}
@@ -23,7 +30,7 @@ nfpms:
 - maintainer: Bedag Network Operation Center <noc@bedag.ch>
   description: Goblackhole.
   homepage: https://github.com/bedag/goblackhole
-  license: MIT
+  license: APACHE
   formats:
   - deb
   - rpm

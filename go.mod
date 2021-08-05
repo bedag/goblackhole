@@ -1,4 +1,4 @@
-module github.com/bedag/goblockhole
+module github.com/bedag/goblackhole
 
 go 1.16
 
