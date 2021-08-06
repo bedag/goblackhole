@@ -28,6 +28,7 @@ import (
 	gobgp "github.com/osrg/gobgp/pkg/server"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
+	"google.golang.org/grpc"
 )
 
 // Config config for goblackhole
@@ -41,6 +42,7 @@ type Config struct {
 	LogLevel  string
 	Interval  time.Duration
 	Community []uint32
+	GrpcHost  string // default :50051
 }
 
 // Peer peer config
@@ -56,7 +58,11 @@ var (
 	attrs []*any.Any       //default bgp attributes
 )
 
+const maxSize int = 256 << 20
+
 func main() {
+	maxSize := 256 << 20
+
 	cfg = Config{}
 
 	viper.SetConfigName("config")
@@ -74,6 +80,7 @@ func main() {
 	viper.SetDefault("NextHop", "192.168.0.1")
 	viper.SetDefault("Log", "Info")
 	viper.SetDefault("Interval", 5*time.Second)
+	viper.SetDefault("GrpcHost", ":50051")
 	err := viper.Unmarshal(&cfg)
 	if err != nil {
 		log.Fatalf("Unable to decode into struct, %v", err)
@@ -85,7 +92,9 @@ func main() {
 	}
 	log.SetLevel(level)
 
-	s = gobgp.NewBgpServer()
+	// Start GRPC Server & GOBGP Server
+	grpcOpts := []grpc.ServerOption{grpc.MaxRecvMsgSize(maxSize), grpc.MaxSendMsgSize(maxSize)}
+	s = gobgp.NewBgpServer(gobgp.GrpcListenAddress(cfg.GrpcHost), gobgp.GrpcOption(grpcOpts))
 	go s.Serve()
 
 	// global configuration
