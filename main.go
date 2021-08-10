@@ -50,6 +50,7 @@ type Peer struct {
 	Remote_as uint32
 	Local_as  uint32
 	Remote_ip string
+	MultiHop  uint32 // set ip ttl
 }
 
 var (
@@ -141,6 +142,10 @@ func main() {
 				NeighborAddress: peer.Remote_ip,
 				PeerAs:          peer.Remote_as,
 				LocalAs:         cfg.Local_as,
+			},
+			EbgpMultihop: &api.EbgpMultihop{
+				Enabled:     true,
+				MultihopTtl: peer.MultiHop,
 			},
 		}
 		err := s.AddPeer(context.Background(), &api.AddPeerRequest{Peer: n})
