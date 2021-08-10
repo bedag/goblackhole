@@ -34,13 +34,19 @@ The Config should be stored in `./config.yaml`
 Peers:
   - remote_as: 64512
     remote_ip: "172.17.0.2"
+    MultiHop: 2
 local_id: 10.217.133.15
 local_as: 65001
 LogLevel: Info 
 Blocklist: https://raw.githubusercontent.com/stamparm/ipsum/master/ipsum.txt
 Community: 
 - 666
+NextHop: 192.168.0.1
 ```
+
+### Kubernetes
+
+You can find the offical Helm Chart here: https://github.com/bedag/helm-charts/tree/master/charts/goblackhole
 
 # Contributing
 
