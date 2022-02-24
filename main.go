@@ -24,8 +24,8 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/any"
-	api "github.com/osrg/gobgp/api"
-	gobgp "github.com/osrg/gobgp/pkg/server"
+	api "github.com/osrg/gobgp/v3/api"
+	gobgp "github.com/osrg/gobgp/v3/pkg/server"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
@@ -101,7 +101,7 @@ func main() {
 	// global configuration
 	if err := s.StartBgp(context.Background(), &api.StartBgpRequest{
 		Global: &api.Global{
-			As:         cfg.Local_as,
+			Asn:         cfg.Local_as,
 			RouterId:   cfg.Local_id,
 			ListenPort: cfg.Listen,
 		},
@@ -130,18 +130,13 @@ func main() {
 	// ToDo: Add comunityAttribute
 	attrs = []*any.Any{a1, a2, a3}
 
-	// monitor the change of the peer state
-	if err := s.MonitorPeer(context.Background(), &api.MonitorPeerRequest{}, func(p *api.Peer) { log.Info(p) }); err != nil {
-		log.Fatal(err)
-	}
-
 	// neighbor configuration
 	for _, peer := range cfg.Peers {
 		n := &api.Peer{
 			Conf: &api.PeerConf{
 				NeighborAddress: peer.Remote_ip,
-				PeerAs:          peer.Remote_as,
-				LocalAs:         cfg.Local_as,
+				PeerAsn:          peer.Remote_as,
+				LocalAsn:         cfg.Local_as,
 			},
 			EbgpMultihop: &api.EbgpMultihop{
 				Enabled:     true,
