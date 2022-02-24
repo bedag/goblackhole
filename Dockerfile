@@ -1,5 +1,5 @@
 FROM golang AS gobgp
-RUN go get github.com/osrg/gobgp/cmd/gobgp
+RUN go get github.com/osrg/gobgp/v3/cmd/gobgp
 
 FROM golang AS gobgp-exporter
 RUN cd $GOPATH/src \
