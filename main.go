@@ -17,6 +17,8 @@ package main
 import (
 	"bytes"
 	"context"
+	"encoding/binary"
+	"fmt"
 	"net"
 	"net/http"
 	"strings"
@@ -179,6 +181,10 @@ func getIP(ip string) (net.IPNet, error) {
 	_, cidr, err := net.ParseCIDR(ip)
 	if err != nil {
 		return net.IPNet{}, err
+	}
+	// only ipv4
+	if binary.Size(cidr.IP) == 16 {
+		return net.IPNet{}, fmt.Errorf("ipv6 %v", cidr.IP)
 	}
 	return *cidr, nil
 }
