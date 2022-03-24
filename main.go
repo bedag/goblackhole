@@ -219,7 +219,7 @@ func addIPtoPeer(a []net.IPNet) {
 	for _, ip := range a {
 		log.Debugf("adding %v to peers", ip.String())
 
-		_, mask := ip.Mask.Size()
+		mask, _ := ip.Mask.Size()
 		nlri, _ := ptypes.MarshalAny(&api.IPAddressPrefix{
 			Prefix:    string(ip.IP.String()),
 			PrefixLen: uint32(mask),
@@ -246,7 +246,7 @@ func delIPtoPeer(d []net.IPNet) {
 	for _, ip := range d {
 		log.Debugf("delete %v to peers", ip.String())
 
-		_, mask := ip.Mask.Size()
+		mask, _ := ip.Mask.Size()
 		nlri, _ := ptypes.MarshalAny(&api.IPAddressPrefix{
 			Prefix:    string(ip.IP.String()),
 			PrefixLen: uint32(mask),
