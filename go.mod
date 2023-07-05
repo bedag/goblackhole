@@ -8,6 +8,6 @@ require (
 	github.com/osrg/gobgp/v3 v3.0.0-rc4
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/viper v1.8.1
-	google.golang.org/grpc v1.42.0
+	google.golang.org/grpc v1.53.0
 	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
 )
